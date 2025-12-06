@@ -1,0 +1,170 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    color: #333;
+    line-height: 1.6;
+}
+
+a { color: #337ab7; text-decoration: none; transition: color 0.2s; }
+a:hover { color: #286090; text-decoration: underline; }
+
+nav {
+    background: #ffffff;
+    padding: 15px 30px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+nav strong { font-size: 1.4em; color: #333; font-weight: bold; }
+nav span { margin-left: 20px; color: #777; font-size: 0.9em; }
+
+nav div a {
+    margin-left: 20px;
+    color: #555;
+    font-weight: 500;
+}
+nav div a:hover { color: #337ab7; text-decoration: none; }
+
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+}
+
+.form-container {
+    max-width: 450px;
+    margin: 60px auto;
+    padding: 40px;
+    background: white;
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+h2 { text-align: center; margin-top: 0; margin-bottom: 20px; color: #444; }
+label { display: block; margin-top: 15px; font-weight: 600; color: #555; }
+
+input[type="text"], 
+input[type="email"], 
+input[type="password"], 
+textarea {
+    width: 100%;
+    padding: 12px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; 
+    font-size: 14px;
+    transition: border 0.3s;
+}
+
+input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    background-color: #f8f8f8;
+    border-radius: 4px;
+    box-sizing: border-box; 
+}
+
+input:focus, textarea:focus {
+    border-color: #337ab7;
+    outline: none;
+    box-shadow: 0 0 5px rgba(51, 122, 183, 0.2);
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #337ab7;
+    color: white !important;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    text-align: center;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+.btn:hover { background-color: #286090; text-decoration: none; }
+
+.form-container .btn {
+    width: 100%;
+    margin-top: 25px;
+}
+
+.btn-danger { background-color: #d9534f; }
+.btn-danger:hover { background-color: #c9302c; }
+
+.btn-info { background-color: #5bc0de; }
+.btn-info:hover { background-color: #31b0d5; }
+
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    font-size: 0.95em;
+    text-align: center;
+}
+.alert-danger { background-color: #f2dede; color: #a94442; border: 1px solid #ebccd1; }
+.alert-success { background-color: #dff0d8; color: #3c763d; border: 1px solid #d6e9c6; }
+
+.dashboard-list-wrapper {
+    background: white;
+    padding: 30px; 
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05); 
+    margin-top: 20px;
+}
+
+.item-list { list-style: none; padding: 0; }
+
+.item-card {
+    background-color: #ffffff; 
+    border: 1px solid #e0e0e0; 
+    padding: 18px; 
+    margin-bottom: 20px; 
+    border-radius: 8px; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05); 
+    border-bottom: none;
+}
+.item-card:last-child { border-bottom: none; }
+
+.item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.item-header h3 { margin: 0; font-size: 1.3em; color: #333; }
+
+.item-image {
+    max-width: 200px; 
+    max-height: 200px;
+    height: auto;
+    display: block;
+    border-radius: 4px;
+    border: 1px solid #eee;
+}
+.badge {
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 0.75em;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.badge-Lost { background-color: #d9534f; } 
+.badge-Found { background-color: #5bc0de; } 
+
+.text-center { text-align: center; display: block; margin-top: 15px; font-size: 0.9em; }
+small { color: #999; display: block; margin-top: 10px;}

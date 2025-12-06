@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Login - ZC Reclaim{% endblock %}
+{% block content %}
+    <div class="form-container">
+        <h2>Login</h2>
+        <form method="POST" action="{{ url_for('auth.login') }}">
+            <label>Email</label>
+            <input type="email" name="email" required placeholder="Enter your email">
+            <label>Password</label>
+            <input type="password" name="password" required placeholder="Enter your password">
+            <button type="submit" class="btn">Login</button>
+        </form>
+        <p class="text-center">New here? <a href="{{ url_for('auth.register') }}">Register now</a>.</p>
+    </div>
+{% endblock %}
