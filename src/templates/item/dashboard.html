@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - ZC Reclaim{% endblock %}
+
+{% block content %}
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h2>Recent Items</h2>
+        <div>
+            <a href="{{ url_for('item.report', item_type='Lost') }}" class="btn btn-danger">Report Lost</a>
+            <a href="{{ url_for('item.report', item_type='Found') }}" class="btn btn-info">Report Found</a>
+        </div>
+    </div>
+
+    <div class="dashboard-list-wrapper"> 
+        <ul class="item-list">
+            {% if items %}
+                {% for item in items %}
+                    <li class="item-card">
+                        <div class="item-header">
+                            <h3>{{ item.title }}</h3>
+                            <span class="badge badge-{{ item.type }}">
+                                {{ item.type }}
+                            </span>
+                        </div>
+
+                        {% if item.image_url %}
+                            <div style="margin-bottom: 15px;"> <img src="{{ url_for('static', filename='uploads/' + item.image_url) }}" 
+                                     alt="{{ item.title }}" 
+                                     class="item-image">
+                            </div>
+                        {% endif %}
+
+                        <p><strong>Location:</strong> {{ item.location }}</p>
+                        <p class="item-description">{{ item.description }}</p>
+                        
+                        <small class="item-posted-date">Posted: {{ item.created_at.strftime('%Y-%m-%d') }}</small>
+                    </li>
+                {% endfor %}
+            {% else %}
+                <div class="text-center" style="padding: 20px;">
+                    <p style="color: #777;">No items found. Be the first to report something!</p>
+                </div>
+            {% endif %}
+        </ul>
+    </div>
+{% endblock %}

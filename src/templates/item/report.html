@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Report {{ item_type }} Item{% endblock %}
+{% block content %}
+    <div class="form-container">
+        <h2 style="text-align: center;">Report a {{ item_type }} Item</h2>
+        <hr style="border: 0; border-top: 1px solid #eee; margin-bottom: 20px;">
+        <form method="POST" enctype="multipart/form-data">
+            <label>Item Name</label>
+            <input type="text" name="title" required placeholder="What is the item?">
+            <label>Location</label>
+            <input type="text" name="location" required placeholder="Where was it?">
+            <label>Description</label>
+            <textarea name="description" rows="4" required placeholder="Details (color, brand, etc.)"></textarea>
+            <label>Item Picture (Optional)</label>
+            <input type="file" name="file" accept="image/*">
+            <button type="submit" class="btn">Submit Post</button>
+        </form>
+        <p class="text-center"><a href="{{ url_for('item.dashboard') }}">Cancel</a></p>
+    </div>
+{% endblock %}
