@@ -19,6 +19,18 @@
                 <a href="{{ url_for('auth.logout') }}" style="color: #d9534f;">Logout</a>
             {% endif %}
         </div>
+        <form action="{{ url_for('item.dashboard') }}" method="GET" class="d-flex mx-auto">
+        <input class="form-control me-2" type="search" name="q" placeholder="Search items...">
+        <button class="btn btn-outline-light" type="submit">Search</button>
+    </form>
+
+    <ul class="navbar-nav ms-auto">
+        {% if session.get('role') == 'Admin' %}
+            <li class="nav-item">
+                <a class="nav-link text-danger fw-bold" href="{{ url_for('admin.dashboard') }}">Admin Panel</a>
+            </li>
+        {% endif %}
+        </ul>
     </nav>
 
     <div class="container">
