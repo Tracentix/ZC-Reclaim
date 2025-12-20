@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-danger">Admin Dashboard</h1>
+    <table class="table table-striped mt-3">
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>User</th>
+                <th>Proof</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for claim in claims %}
+            <tr>
+                <td>{{ claim.item.title }}</td>
+                <td>{{ claim.user.username }}</td>
+                <td>{{ claim.verification_details }}</td>
+                <td>
+                    <form action="{{ url_for('admin.approve_claim', claim_id=claim.id) }}" method="POST">
+                        <button type="submit" class="btn btn-success btn-sm">Approve</button>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="4">No pending claims.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
