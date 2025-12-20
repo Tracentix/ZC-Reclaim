@@ -4,7 +4,6 @@ from werkzeug.utils import secure_filename
 from datetime import datetime
 import os
 
-# Set upload path
 UPLOAD_FOLDER = os.path.join(os.getcwd(), 'src', 'static', 'uploads')
 
 item_bp = Blueprint('item', __name__, url_prefix='/items')
@@ -26,14 +25,12 @@ def report(item_type):
     if request.method == 'POST':
         image_url = None
         
-        # Handle File Upload
         if 'file' in request.files:
             file = request.files['file']
             if file.filename != '':
                 filename = secure_filename(file.filename)
                 unique_filename = f"{datetime.now().strftime('%Y%m%d%H%M%S')}_{filename}"
                 
-                # Ensure folder exists
                 if not os.path.exists(UPLOAD_FOLDER):
                     os.makedirs(UPLOAD_FOLDER)
                     

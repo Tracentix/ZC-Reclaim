@@ -13,7 +13,6 @@ def register():
         email = request.form.get('email')
         password = request.form.get('password')
 
-        # Check existing email
         if user_repo.get_user_by_email(email):
             flash('Email address already registered!', 'danger')
             return redirect(url_for('auth.register'))

@@ -6,7 +6,6 @@ from src.controllers.item_controller import item_bp
 
 def create_app():
     app = Flask(__name__)
-    # Config
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///zcreclaim.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SECRET_KEY'] = 'dev-secret-key'
