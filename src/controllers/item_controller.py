@@ -14,7 +14,13 @@ def dashboard():
     if 'user_id' not in session:
         return redirect(url_for('auth.login'))
     
-    items = item_repo.get_all_active_items()
+    query = request.args.get('q')
+    
+    if query:
+        items = item_repo.search_items(query)
+    else:
+        items = item_repo.get_all_active_items()
+        
     return render_template('item/dashboard.html', items=items, username=session.get('username'))
 
 @item_bp.route('/report/<item_type>', methods=['GET', 'POST'])
