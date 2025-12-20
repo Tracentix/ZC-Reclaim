@@ -1,10 +1,14 @@
 from flask import Blueprint, render_template, request, redirect, url_for, session, flash
 from src.repositories.item_repository import ItemRepository
+from src.models.item import Item 
+from src.models.claim import Claim 
+from src.core import db             
 from werkzeug.utils import secure_filename
 from datetime import datetime
 import os
 
-UPLOAD_FOLDER = os.path.join(os.getcwd(), 'src', 'static', 'uploads')
+current_dir = os.path.dirname(os.path.abspath(__file__))
+UPLOAD_FOLDER = os.path.join(current_dir, '..', 'static', 'uploads')
 
 item_bp = Blueprint('item', __name__, url_prefix='/items')
 item_repo = ItemRepository()
@@ -56,3 +60,41 @@ def report(item_type):
         return redirect(url_for('item.dashboard'))
 
     return render_template('item/report.html', item_type=item_type)
+
+@item_bp.route('/my_items')
+def my_items():
+    if 'user_id' not in session:
+        return redirect(url_for('auth.login'))
+    
+    user_id = session['user_id']
+    
+    my_reported_items = Item.query.filter_by(user_id=user_id).order_by(Item.created_at.desc()).all()
+    
+    my_claims = Claim.query.filter_by(user_id=user_id).order_by(Claim.claim_date.desc()).all()
+    
+    return render_template('item/my_items.html', items=my_reported_items, claims=my_claims)
+
+@item_bp.route('/delete/<int:item_id>', methods=['POST'])
+def delete_item(item_id):
+    if 'user_id' not in session:
+        return redirect(url_for('auth.login'))
+        
+    item = Item.query.get_or_404(item_id)
+    
+    if item.user_id != session['user_id'] and session.get('role') != 'Admin':
+        flash('You are not authorized to delete this item.', 'danger')
+        return redirect(url_for('item.dashboard'))
+    
+    try:
+        Claim.query.filter_by(item_id=item_id).delete()
+        
+        db.session.delete(item)
+        db.session.commit()
+        
+        flash('Item deleted successfully.', 'success')
+        
+    except Exception as e:
+        db.session.rollback()
+        flash(f'Error deleting item: {str(e)}', 'danger')
+    
+    return redirect(url_for('item.my_items'))

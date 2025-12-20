@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-danger">Admin Dashboard</h1>
+    <p>Manage pending claims and verify ownership.</p>
+    
+    <table class="table table-striped mt-3">
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>User</th>
+                <th>Proof Provided</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for claim in claims %}
+            <tr>
+                <td>{{ claim.item.title }}</td>
+                <td>{{ claim.user.username }}</td>
+                <td>{{ claim.verification_details }}</td>
+                <td style="display: flex; gap: 10px;">
+                    <form action="{{ url_for('admin.approve_claim', claim_id=claim.id) }}" method="POST">
+                        <button type="submit" class="btn btn-success btn-sm">Approve</button>
+                    </form>
+                    
+                    <form action="{{ url_for('admin.reject_claim', claim_id=claim.id) }}" method="POST">
+                        <button type="submit" class="btn btn-danger btn-sm">Reject</button>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="4" class="text-center">No pending claims found.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

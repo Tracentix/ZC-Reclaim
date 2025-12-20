@@ -6,35 +6,48 @@
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
         <h2>Recent Items</h2>
         <div>
-            <a href="{{ url_for('item.report', item_type='Lost') }}" class="btn btn-danger">Report Lost</a>
-            <a href="{{ url_for('item.report', item_type='Found') }}" class="btn btn-info">Report Found</a>
+            <a href="{{ url_for('item.report', item_type='Lost') }}" class="btn btn-danger" style="padding: 10px; background-color: #d9534f; color: white; text-decoration: none; border-radius: 5px; margin-right: 5px;">Report Lost</a>
+            <a href="{{ url_for('item.report', item_type='Found') }}" class="btn btn-info" style="padding: 10px; background-color: #5bc0de; color: white; text-decoration: none; border-radius: 5px;">Report Found</a>
         </div>
     </div>
 
     <div class="dashboard-list-wrapper"> 
-        <ul class="item-list">
+        <ul class="item-list" style="list-style: none; padding: 0;">
             {% if items %}
                 {% for item in items %}
-                    <li class="item-card">
-                        <div class="item-header">
-                            <h3>{{ item.title }}</h3>
-                            <span class="badge badge-{{ item.type }}">
+                    <li class="item-card" style="border: 1px solid #ddd; padding: 15px; margin-bottom: 20px; border-radius: 8px; background-color: #fff;">
+                        <div class="item-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                            <h3 style="margin: 0;">{{ item.title }}</h3>
+                            <span class="badge badge-{{ item.type }}" style="padding: 5px 10px; background-color: #eee; border-radius: 4px; font-weight: bold;">
                                 {{ item.type }}
                             </span>
                         </div>
 
                         {% if item.image_url %}
-                            <div style="margin-bottom: 15px;"> <img src="{{ url_for('static', filename='uploads/' + item.image_url) }}" 
+                            <div style="margin-bottom: 15px;"> 
+                                <img src="{{ url_for('static', filename='uploads/' + item.image_url) }}" 
                                      alt="{{ item.title }}" 
-                                     class="item-image">
+                                     class="item-image" style="max-width: 100%; height: auto; border-radius: 4px;">
                             </div>
                         {% endif %}
 
                         <p><strong>Location:</strong> {{ item.location }}</p>
                         <p class="item-description">{{ item.description }}</p>
                         
-                        <small class="item-posted-date">Posted: {{ item.created_at.strftime('%Y-%m-%d') }}</small>
-                    </li>
+                        <small class="item-posted-date" style="display: block; margin-bottom: 15px; color: #888;">Posted: {{ item.created_at.strftime('%Y-%m-%d') }}</small>
+                        
+                        <div style="border-top: 1px solid #eee; padding-top: 10px;">
+                            {% if item.status == 'Active' %}
+                                <a href="{{ url_for('claim.submit_claim', item_id=item.id) }}" class="btn btn-warning" style="background-color: #f0ad4e; color: white; padding: 5px 10px; text-decoration: none; border-radius: 4px; display: inline-block;">
+                                    This is mine! (Claim)
+                                </a>
+                            {% else %}
+                                <button class="btn btn-secondary" disabled style="background-color: #777; color: white; padding: 5px 10px; border: none; border-radius: 4px; cursor: not-allowed;">
+                                    Claimed
+                                </button>
+                            {% endif %}
+                        </div>
+                        </li>
                 {% endfor %}
             {% else %}
                 <div class="text-center" style="padding: 20px;">

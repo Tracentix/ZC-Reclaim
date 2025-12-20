@@ -23,3 +23,14 @@ def approve_claim(claim_id):
     db.session.commit()
     flash('Claim Approved.', 'success')
     return redirect(url_for('admin.dashboard'))
+
+@admin_bp.route('/reject/<int:claim_id>', methods=['POST'])
+@admin_required
+def reject_claim(claim_id):
+    claim = Claim.query.get_or_404(claim_id)
+    
+    claim.status = 'Rejected'
+    
+    db.session.commit()
+    flash('Claim Rejected.', 'info')
+    return redirect(url_for('admin.dashboard'))
